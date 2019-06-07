@@ -4,6 +4,11 @@
 #include "Vector3.h"
 #endif
 
+#ifndef _HITRECORD
+#define _HITRECORD
+#include "HitRecord.h"
+#endif
+
 #ifndef _RAY
 #define _RAY
 #include "Ray.h"
@@ -28,6 +33,7 @@ class Sphere {
 
         // returns true if the argument ray hits the sphere
         // does not modify the sphere nor the ray
-        bool hit( Ray* r );
+        // modifies the hit record inserting the hit data
+        bool hit( Ray* r, float32 tmin, float32 tmax, HitRecord* hr );
 
 };

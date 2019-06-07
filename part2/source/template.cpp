@@ -1,9 +1,9 @@
-// note: touch.py and touch.py are [0,255]
 
 #include <nds.h>
 #include <stdio.h>
 #include "Vector3.h"
 #include "RGBColor.h"
+#include "HitRecord.h"
 #include "Ray.h"
 #include "Sphere.h"
 #include "Camera.h"
@@ -19,11 +19,16 @@ using namespace std;
 RGBColor* colr( Ray* r, Sphere* sphere ) {
 
 	RGBColor* ret;
-	if ( sphere->hit( r ) ) {
-		ret = new RGBColor(31,0,0);
+	HitRecord* hr = new HitRecord();
+	if ( sphere->hit( r, 0.0, 99999.0, hr ) ) {
+		ret = new RGBColor( (uint8) (0.5*(hr->n->x+1.0)*31.0),
+							(uint8) (0.5*(hr->n->y+1.0)*31.0),
+							(uint8) (0.5*(hr->n->z+1.0)*31.0) );
 	} else {
 		ret = new RGBColor(BACKGROUND_RED, BACKGROUND_GREEN, BACKGROUND_BLUE);
 	}
+
+	delete hr;
 	return ret;
 } 
 

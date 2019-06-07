@@ -37,6 +37,12 @@ void Vector3::sub( Vector3* n ) {
     z -= n->z;
 }
 
+void Vector3::subVectors( Vector3* a, Vector3* b ) {
+    x = a->x - b->x;
+    y = a->y - b->y;
+    z = a->z - b->z;
+}
+
 void Vector3::normalize( ) {
 	float32 magnitude = sqrt( (x * x) + (y * y) + (z * z) );
     x /= magnitude;

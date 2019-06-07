@@ -38,5 +38,7 @@ class Vector3 {
         // does not modify the vectors
         float32 dot( Vector3* b );
 
+        // sets the current vector to a-b
+        void subVectors( Vector3* a, Vector3* b );
 
 };

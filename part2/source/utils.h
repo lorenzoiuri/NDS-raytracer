@@ -1,2 +1,2 @@
 
-int map(int value, int istart, int istop, int ostart, int ostop);
+float map(float value, float istart, float istop, float ostart, float ostop);
