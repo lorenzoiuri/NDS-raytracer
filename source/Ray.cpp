@@ -7,6 +7,12 @@ Ray::Ray(  Vector3* _origin, Vector3* _dir ) {
     dir = _dir->clone();
 }
 
+Ray::~Ray() {
+
+    delete origin;
+    delete dir; 
+} 
+
 Vector3* Ray::pointAtParameter( float32 t ) {
 
     Vector3* result = dir->clone();
@@ -14,9 +20,3 @@ Vector3* Ray::pointAtParameter( float32 t ) {
     result->add(origin);
     return result;
 }
-
-Ray::~Ray() {
-
-    delete origin;
-    delete dir; 
-} 

@@ -2,11 +2,23 @@
 
 #include <nds.h>
 #include <stdio.h>
-//#include "Vector3.h"
+#include "Vector3.h"
 #include "Ray.h"
+#include "Sphere.h"
+#include "Camera.h"
 #include "utils.h"
 
 using namespace std;
+
+Vector3* colr( Ray* r, Sphere* sphere ) {
+
+	Vector3* ret;
+	if ( sphere->hit( r ) ) {
+		ret = new Vector3(31,0,0);
+	}
+	ret = new Vector3(31,15,31);
+	return ret;
+} 
 
 int main(void) {
 	
@@ -25,25 +37,29 @@ int main(void) {
 	iprintf("--------------------------------\n");
 	iprintf("\n debug text initialized \n");
 
-	Vector3* origin = new Vector3(0.0,0.0,0.0);
-	Vector3* dir = new Vector3(1.0,0.8,0.0);
-	Ray* r = new Ray( origin, dir );
+	// creating the sphere
+	Vector3* sphere_center = new Vector3(0.0,0.0,-1.0);
+	Sphere* sphere = new Sphere( sphere_center, 0.5);
+	delete sphere_center;
 
-	delete origin; delete dir;
-
-	Vector3* pt = r->pointAtParameter(2.0);
-	iprintf("point: %d, %d\n", (int32)(pt->x * 100), (int32)(pt->y * 100) );
-
-	delete pt;
-	delete r;
+	// creating the camera
+	float32 aspect = (SCREEN_WIDTH*1.0) / (SCREEN_HEIGHT*1.0);
+    Camera* camera = new Camera( 90.0*(3.141592)/180.0, aspect );
 
 	// put data inside vram
 	while(1) {
 		for (u16 j=0; j < SCREEN_HEIGHT; j++) {
-			u16 y = map(j, 0, SCREEN_HEIGHT, 0, 31);
 			for (u16 i=0; i < SCREEN_WIDTH; i++) {
-				u16 x = map(i, 0, SCREEN_WIDTH, 0, 31);
-				VRAM_A[j * SCREEN_WIDTH + i] = RGB5(x,y,15);
+				float32 u = (i * 1.0) / SCREEN_WIDTH;
+				float32 v = (j * 1.0) / SCREEN_HEIGHT;
+
+				Ray* r = camera->getRay( u, v );
+
+				Vector3* col = colr( r, sphere );
+
+				VRAM_A[j * SCREEN_WIDTH + i] = RGB5((int)col->x, (int)col->y, (int)col->z);
+
+				delete col;
 			}
 		}
 		swiWaitForVBlank();

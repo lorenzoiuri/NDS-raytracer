@@ -2,6 +2,10 @@
 #include "nds/ndstypes.h"
 #include "math.h"
 
+#ifndef _VECTOR3
+#define _VECTOR3
+#endif
+
 class Vector3 {
 
     private:
@@ -22,6 +26,9 @@ class Vector3 {
 
         // modifies the current Vector3 adding it to n
         void add( Vector3* n );
+
+        // modifies the current Vector3 subtracting it n
+        void sub( Vector3* n );
 
         // modifies the current Vector3 normalizing it
         void normalize( );

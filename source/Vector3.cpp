@@ -28,6 +28,12 @@ void Vector3::add( Vector3* n ) {
     z += n->z;
 }
 
+void Vector3::sub( Vector3* n ) {
+    x -= n->x;
+    y -= n->y;
+    z -= n->z;
+}
+
 void Vector3::normalize( ) {
 	float32 magnitude = sqrt( (x * x) + (y * y) + (z * z) );
     x /= magnitude;
