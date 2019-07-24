@@ -17,10 +17,10 @@ bool Sphere::hit( Ray* r, float32 tmin, float32 tmax, HitRecord* hr ) {
     Vector3* oc = r->origin->clone();
     oc->sub(center);
 
-    float32 a = (r->dir)->dot(r->dir);
-    float32 b = oc->dot(r->dir);
-    float32 c = oc->dot(oc) - (radius * radius);
-    float32 discriminant = b*b - a*c;
+    const float32 a = (r->dir)->dot(r->dir);
+    const float32 b = oc->dot(r->dir);
+    const float32 c = oc->dot(oc) - (radius * radius);
+    const float32 discriminant = b*b - a*c;
 
     delete oc; 
 
@@ -54,7 +54,6 @@ bool Sphere::hit( Ray* r, float32 tmin, float32 tmax, HitRecord* hr ) {
 
             return true;
         }
-
     }
 
     return false;

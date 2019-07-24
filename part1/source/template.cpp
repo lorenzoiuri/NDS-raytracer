@@ -45,12 +45,12 @@ int main(void) {
 	iprintf("\n debug text initialized \n");
 
 	// creating the sphere centered in (0,0,-1) with radius 0.5
-	Vector3* sphere_center = new Vector3(0.0,0.0,-1.0);
+	Vector3* sphere_center = new Vector3(0.0,1.0,-1.0);
 	Sphere* sphere = new Sphere( sphere_center, 0.5);
 	delete sphere_center;
 
 	// creating the camera
-	float32 aspect = (SCREEN_WIDTH*1.0) / (SCREEN_HEIGHT*1.0);
+	const float32 aspect = (SCREEN_WIDTH*1.0) / (SCREEN_HEIGHT*1.0);
     Camera* camera = new Camera( 90.0*M_PI/180.0, aspect );
 
 	// counter for the rendering passes
@@ -60,8 +60,9 @@ int main(void) {
 	while(1) {
 		for (u16 j=0; j < SCREEN_HEIGHT; j++) {
 			for (u16 i=0; i < SCREEN_WIDTH; i++) {
-				float32 u = (i * 1.0) / SCREEN_WIDTH;
-				float32 v = (j * 1.0) / SCREEN_HEIGHT;
+
+				const float32 u = (i * 1.0) / SCREEN_WIDTH;
+				const float32 v = (j * 1.0) / SCREEN_HEIGHT;
 
 				// get ray from the pixel through the camera
 				Ray* r = camera->getRay( u, v );
@@ -72,7 +73,7 @@ int main(void) {
 				delete r;
 
 				// set the computed color in the vram
-				VRAM_A[j * SCREEN_WIDTH + i] = RGB5(col->r, col->g, col->b);
+				VRAM_A[(SCREEN_HEIGHT-j) * SCREEN_WIDTH + i] = RGB5(col->r, col->g, col->b);
 
 				delete col;
 			}

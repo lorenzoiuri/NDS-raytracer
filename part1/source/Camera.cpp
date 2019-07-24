@@ -3,8 +3,8 @@
 
 Camera::Camera( float32 _vfov, float32 _aspect ) {
 
-    float32 halfHeight = tan( _vfov / 2.0 );
-    float32 halfWidth = halfHeight * _aspect;
+    const float32 halfHeight = tan( _vfov / 2.0 );
+    const float32 halfWidth = halfHeight * _aspect;
 
     lowerLeftCorner = new Vector3( -halfWidth, -halfHeight, -1 );
     horizontal = new Vector3( 2.0*halfWidth, 0, 0 );

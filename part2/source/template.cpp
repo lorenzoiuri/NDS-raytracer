@@ -50,7 +50,7 @@ int main(void) {
 	iprintf("\n debug text initialized \n");
 
 	// creating the sphere centered in (0,0,-1) with radius 0.5
-	Vector3* sphere_center = new Vector3(0.0,0.0,-1.0);
+	Vector3* sphere_center = new Vector3(0.0,0.2,-1.0);
 	Sphere* sphere = new Sphere( sphere_center, 0.5);
 	delete sphere_center;
 
@@ -77,7 +77,7 @@ int main(void) {
 				delete r;
 
 				// set the computed color in the vram
-				VRAM_A[j * SCREEN_WIDTH + i] = RGB5(col->r, col->g, col->b);
+				VRAM_A[(SCREEN_HEIGHT - j) * SCREEN_WIDTH + i] = RGB5(col->r, col->g, col->b);
 
 				delete col;
 			}
